@@ -1,0 +1,25 @@
+<h1>TeamViewer IDs</h1>
+
+<p>Uploaded from imaged computers, update in <a href='https://inventory.optumserve.com/Search.aspx'>HW inventory</a>.</p>
+
+
+<p *ngIf="teamViewers == null"><em>Loading...</em></p>
+
+<table class="table" *ngIf="teamViewers != null" id="tvTable">
+    <thead>
+        <tr>
+            <th>Hostname</th>
+            <th>Asset Tag</th>
+            <th>TeamViewer ID</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let teamViewer of teamViewers">
+            <td>{{teamViewer.hostName}}</td>
+            <td>LHI{{teamViewer.hostName.substring(3)}}<button class="btn btn-primary">📋 Copy</button></td>
+            <td>{{teamViewer.teamViewerID}} <button class="btn btn-primary">📋 Copy</button></td>
+            <td><button class="btn btn-primary" (click)="delete(teamViewer)">❌ Delete</button></td>
+        </tr>
+    </tbody>
+</table>
