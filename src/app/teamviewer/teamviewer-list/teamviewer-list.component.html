@@ -1,25 +1,46 @@
 <h1>TeamViewer IDs</h1>
 
-<p>Uploaded from imaged computers, update in <a href='https://inventory.optumserve.com/Search.aspx'>HW inventory</a>.</p>
+<p>Uploaded from imaged computers, update in <a target="_blank" href='https://inventory.optumserve.com/Search.aspx'>HW inventory</a>.</p>
 
+<input class="form-control" placeholder="Filter by Username" [(ngModel)]="filter">
 
 <p *ngIf="teamViewers == null"><em>Loading...</em></p>
 
-<table class="table" *ngIf="teamViewers != null" id="tvTable">
-    <thead>
-        <tr>
-            <th>Hostname</th>
-            <th>Asset Tag</th>
-            <th>TeamViewer ID</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let teamViewer of teamViewers">
-            <td>{{teamViewer.hostName}}</td>
-            <td>LHI{{teamViewer.hostName.substring(3)}}<button class="btn btn-primary">📋 Copy</button></td>
-            <td>{{teamViewer.teamViewerID}} <button class="btn btn-primary">📋 Copy</button></td>
-            <td><button class="btn btn-primary" (click)="delete(teamViewer)">❌ Delete</button></td>
-        </tr>
-    </tbody>
-</table>
+<ng-container *ngIf="teamViewers != null">
+    <table class="table" id="tvTable">
+        <thead>
+            <tr>
+                <th>Hostname</th>
+                <th>Asset Tag</th>
+                <th>TeamViewer ID</th>
+                <th>Fogged By</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody #tablecontainer>
+            <ng-container *ngFor="let teamViewer of teamViewers">
+                <tr *ngIf="filter == teamViewer.userName.substring(0, filter.length)">
+                    <td>{{teamViewer.hostName}}</td>
+                    <td>
+                        LHI{{teamViewer.hostName.substring(3)}}
+                        <button class="btn btn-primary" (click)="copy('LHI' + teamViewer.hostName.substring(3))">
+                            <i class="bi bi-clipboard"></i>
+                        </button>
+                        <a *ngIf="teamViewer.hwid != null" href="https://inventory.optumserve.com/AssetDetail.aspx?AssetId={{teamViewer.hwid}}" target="_blank">
+                            <button class="btn btn-primary" >
+                                Open In HWI
+                            </button>
+                        </a>
+                    </td>
+                    <td>{{teamViewer.teamViewerID}} <button class="btn btn-primary" (click)="copy(teamViewer.teamViewerID)"><i class="bi bi-clipboard"></i></button></td>
+                    <td>
+                        {{teamViewer.userName}}
+                    </td>
+                    <td><button class="btn btn-primary" (click)="delete(teamViewer)"><i class="bi bi-trash"></i></button></td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+    <!-- <h3 *ngIf="tablecontainer.childElementCount == 0">Theres nothing here.</h3> -->
+</ng-container>
+

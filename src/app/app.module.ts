@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TeamviewerListComponent } from './teamviewer/teamviewer-list/teamviewer-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,10 +16,12 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path: 'teamviewer', component: TeamviewerListComponent}
+      {path: 'teamviewer', component: TeamviewerListComponent},
+      {path: '', component: TeamviewerListComponent}
     ]),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

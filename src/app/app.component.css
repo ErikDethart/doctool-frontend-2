@@ -1,7 +1,4 @@
-:root{
-    --better-white: #f8f8ff;
-    --better-black: #333;
-}
+
 
 .mycontainer {
     width: 100vw;
@@ -18,39 +15,32 @@
     padding: 10px;
     gap: 10px;
 
-    background-color: var(--better-white);
+    background-color: #f8f8ff;
     color: #fff;
 }
 
 .mycontainer div {
     padding: 10px;
-    border-radius: 12px;
+    border-radius: 5px;
 }
 
 .topbar {
     grid-column-start: 1;
     grid-column-end: 4;
-    background-color: #333;
+    background-color: var(--bs-primary);
     padding-left: 0px;
 }
 
 .topbar i {
-    border-radius: 12px;
+    border-radius: 5px;
     min-width: 27px;
     padding:3px 5px;
-}
-
-.topbar i:hover {
-    background: #fff;
-    color: #333;
-    transition: all 0.4s ease;
 }
 
 .sidenav {
     grid-row-start: 2;
     grid-row-end: 3;
-    background-color: var(--bs-secondary);
-    background-color: #333;
+    background-color: var(--bs-primary);
 }
 
 .nav-list{
@@ -59,18 +49,20 @@
 }
 
 .nav-list li {
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: default;
 }
 
 .nav-list li:hover {
-    background: #fff;
+    background: #f8f8ff;
     color: #333;
     transition: all 0.4s ease;
 }
 
 .nav-list li i {
-    margin-left: 10px;
+    border-radius: 12px;
+    min-width: 27px;
+    padding:3px 5px;
 }
 
 .outlet {

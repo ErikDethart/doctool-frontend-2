@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 import { TeamViewer } from '../shared/teamviewer.model';
 import { TeamviewerService } from '../shared/teamviewer.service';
 
@@ -9,6 +10,7 @@ import { TeamviewerService } from '../shared/teamviewer.service';
 })
 export class TeamviewerListComponent implements OnInit {
   teamViewers : TeamViewer[] = [];
+  filter: string = "";
 
   constructor(private teamViewerService : TeamviewerService) { }
 
@@ -24,10 +26,15 @@ export class TeamviewerListComponent implements OnInit {
     this.teamViewerService.getTeamViewers().subscribe(teamViewers => (this.teamViewers = teamViewers));
   }
 
-  delete(teamViewer: TeamViewer) {
+  async delete(teamViewer: TeamViewer) {
     if (confirm(`Delete ${teamViewer.hostName}?`)) {
-      this.teamViewerService.deleteTeamViewer(teamViewer).subscribe();
+      const req = this.teamViewerService.deleteTeamViewer(teamViewer);
+      await lastValueFrom(req);
       this.getTeamViewers();
     }
+  }
+
+  copy(str: string) {
+    navigator.clipboard.writeText(str);
   }
 }

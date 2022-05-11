@@ -18,7 +18,6 @@ export class TeamviewerService {
   }
 
   deleteTeamViewer(teamViewer: TeamViewer): Observable<unknown> {
-    console.log(`${this.teamViewerUrl}/${teamViewer.hostName}`);
     return this.http.delete(`${this.teamViewerUrl}/${teamViewer.hostName}`);
   }
 }
