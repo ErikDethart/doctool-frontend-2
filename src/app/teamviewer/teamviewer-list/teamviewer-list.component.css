@@ -5,3 +5,13 @@ li:nth-child(even) {
 td button {
     margin-left: 10px;
 }
+
+.tdcenter {
+    text-align: center;
+}
+
+.btnholder {
+    margin-bottom: 8px;
+    text-align: right;
+
+}

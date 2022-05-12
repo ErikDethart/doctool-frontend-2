@@ -9,7 +9,7 @@
 
     display: grid;
 
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: 50px 1fr;
 
     padding: 10px;
@@ -26,41 +26,13 @@
 
 .topbar {
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: 3;
     background-color: var(--bs-primary);
     padding-left: 0px;
 }
 
 .topbar i {
     border-radius: 5px;
-    min-width: 27px;
-    padding:3px 5px;
-}
-
-.sidenav {
-    grid-row-start: 2;
-    grid-row-end: 3;
-    background-color: var(--bs-primary);
-}
-
-.nav-list{
-    list-style-type: none;
-    padding-left: 0px;
-}
-
-.nav-list li {
-    border-radius: 5px;
-    cursor: default;
-}
-
-.nav-list li:hover {
-    background: #f8f8ff;
-    color: #333;
-    transition: all 0.4s ease;
-}
-
-.nav-list li i {
-    border-radius: 12px;
     min-width: 27px;
     padding:3px 5px;
 }

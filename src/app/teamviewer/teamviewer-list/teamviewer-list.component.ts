@@ -1,6 +1,6 @@
+import { TeamViewer } from './../shared/teamviewer.model';
 import { Component, OnInit } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
-import { TeamViewer } from '../shared/teamviewer.model';
+import { last, lastValueFrom } from 'rxjs';
 import { TeamviewerService } from '../shared/teamviewer.service';
 
 @Component({
@@ -34,7 +34,31 @@ export class TeamviewerListComponent implements OnInit {
     }
   }
 
-  copy(str: string) {
-    navigator.clipboard.writeText(str);
+  async copy(str: string) {
+    await navigator.clipboard.writeText(str);
+  }
+
+  async aio(teamViewer: TeamViewer) {
+    await this.copy(teamViewer.teamViewerID);
+    let box: HTMLInputElement = <any>document.getElementById("check-delete-" + teamViewer.hostName);
+    box.checked = true;
+    window.open("https://inventory.optumserve.com/AssetDetail.aspx?AssetId=" + teamViewer.hwid, "_blank");
+    let filterField: HTMLInputElement = <any>document.getElementById("filter-input");
+    filterField.disabled = true;
+    filterField.title = "Disabled by outstanding deletions";
+  }
+
+  async massDelete() {
+    for (let teamViewer of this.teamViewers) {
+      let box: HTMLInputElement = <any>document.getElementById("check-delete-" + teamViewer.hostName);
+      if (box != null && box.checked == true) {
+        const req = this.teamViewerService.deleteTeamViewer(teamViewer);
+        await lastValueFrom(req);
+      }
+      this.getTeamViewers();
+      let filterField: HTMLInputElement = <any>document.getElementById("filter-input");
+      filterField.disabled = false;
+      filterField.title = "";
+    }
   }
 }
