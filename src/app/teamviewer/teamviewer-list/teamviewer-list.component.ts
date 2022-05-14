@@ -49,16 +49,19 @@ export class TeamviewerListComponent implements OnInit {
   }
 
   async massDelete() {
+    if (!confirm("Delete?")) {
+      return;
+    }
     for (let teamViewer of this.teamViewers) {
       let box: HTMLInputElement = <any>document.getElementById("check-delete-" + teamViewer.hostName);
       if (box != null && box.checked == true) {
         const req = this.teamViewerService.deleteTeamViewer(teamViewer);
         await lastValueFrom(req);
       }
-      this.getTeamViewers();
-      let filterField: HTMLInputElement = <any>document.getElementById("filter-input");
-      filterField.disabled = false;
-      filterField.title = "";
     }
+    this.getTeamViewers();
+    let filterField: HTMLInputElement = <any>document.getElementById("filter-input");
+    filterField.disabled = false;
+    filterField.title = "";
   }
 }
